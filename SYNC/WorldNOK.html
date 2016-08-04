@@ -27,7 +27,7 @@
         float: left;
       }
 
-       .black {
+      .black {
         background: #000000;
       }
 
@@ -148,7 +148,7 @@
         content.push('<p><div class="color green"></div>Americas</p>');
         content.push('<p><div class="color blue"></div>Europe</p>');
         content.push('<p><div class="color purple"></div>IMEA</p>');
-        content.push('<p>*excluded NSB</p>');
+        content.push('<p>**</p>');
         legend.innerHTML = content.join('');
         legend.index = 1;
         map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
@@ -158,7 +158,9 @@
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(document.getElementById('googft-legend'));		
 			// Create first layer
             var infoWindow = new google.maps.InfoWindow(); //the infowindow object to allow for layer info consolidation
-            var tableid1 = "1-Ih04ae1MuM1HxVi68R59kib3DHE7-9S0mkr-9jB";
+            //var tableid1 = "1-Ih04ae1MuM1HxVi68R59kib3DHE7-9S0mkr-9jB";  //WorldNOK
+			var tableid1 = "1QBvKRG6dKeSfmLSRs7tUqXJdgS8iESlsa3Be3SZ5";    //Merge of WorldNOK and World SDCHRCinfo
+
             var query1 = {
                 select: "name",
                 from: tableid1
