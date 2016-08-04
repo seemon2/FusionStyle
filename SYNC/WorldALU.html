@@ -28,25 +28,30 @@
         float: left;
       }
 
-      .red {
-        background: #C00;
+      .black {
+        background: #000000;
       }
 
-      .yellow {
-        background: #FF3;
+      .pink {
+        background: #ff00ff;
       }
 
-      .green {
-        background: #6F0;
+      .greendark {
+        background: #0c343d;
       }
 
       .blue {
-        background: #06C;
+        background: #0000ff;
       }
 
-      .purple {
-        background: #63C;
+      .green {
+        background: #274e13;
       }
+      .purple {
+        background: #9900ff;
+      }
+	  
+	  .red { background #ff0000;}
 
 
         
@@ -136,20 +141,21 @@
             });
 
 			
-			// Create the legend and display on the map
-        //var legend = document.createElement('div');
-        //legend.id = 'legend';
-        //var content = [];
-        //content.push('<h3>Employee Headcount</h3>');
-        //content.push('<p><div class="color red"></div>Speyeria</p>');
-        //content.push('<p><div class="color yellow"></div>Speyeria</p>');
-        //content.push('<p><div class="color green"></div>Papilio</p>');
-        //content.push('<p><div class="color blue"></div>Limenitis</p>');
-        //content.push('<p><div class="color purple"></div>Myscelia</p>');
-        //content.push('<p>*Data is fictional</p>');
-        //legend.innerHTML = content.join('');
-        //legend.index = 1;
-        //map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+		// Create the legend and display on the map
+        var legend = document.createElement('div');
+        legend.id = 'legend';
+        var content = [];
+        content.push('<h3>Employee Headcount</h3>');
+        content.push('<p><div class="color black"></div>Out-of-Scope</p>');
+        content.push('<p><div class="color pink"></div>APAC</p>');
+        content.push('<p><div class="color greendark"></div>CALA</p>');
+        content.push('<p><div class="color blue"></div>EMEA</p>');
+        content.push('<p><div class="color purple"></div>India</p>');
+        content.push('<p><div class="color green"></div>NAR</p>');
+        content.push('<p>Accenture - Shared Data Centres</p>');
+        legend.innerHTML = content.join('');
+        legend.index = 1;
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
 		
 		// TOP_CENTER, LEFT_CENTER, LEFT_TOP, LEFT_BOTTOM, CENTER, RIGHT_TOP
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(document.getElementById('googft-legend-open'));
