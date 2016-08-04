@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+
+    <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+    <title>Layers and Style</title>
+	
+       <link href="/apis/fusiontables/docs/samples/style/default.css" rel="stylesheet" type="text/css">
+		
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <style type="text/css">
+      #legend {
+        background: #FFF;
+        padding: 10px;
+        margin: 5px;
+        font-size: 12px;
+        font-family: Arial, sans-serif;
+      }
+
+      .color {
+        border: 1px solid;
+        height: 12px;
+        width: 12px;
+        margin-right: 3px;
+        float: left;
+      }
+
+      .red {
+        background: #C00;
+      }
+
+      .yellow {
+        background: #FF3;
+      }
+
+      .green {
+        background: #6F0;
+      }
+
+      .blue {
+        background: #06C;
+      }
+
+      .purple {
+        background: #63C;
+      }
+
+
+        
+        #googft-legend {
+            background-color: #fff;
+            border: 1px solid #000;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            margin: 5px;
+            padding: 10px 10px 8px
+        }
+        
+        #googft-legend p {
+            font-weight: bold;
+            margin-top: 0
+        }
+        
+        #googft-legend div {
+            margin-bottom: 5px
+        }
+        
+        .googft-legend-swatch {
+            border: 1px solid;
+            float: left;
+            height: 12px;
+            margin-right: 8px;
+            width: 20px
+        }
+        
+        .googft-legend-range {
+            margin-left: 0
+        }
+        
+        .googft-dot-icon {
+            margin-right: 8px
+        }
+        
+        .googft-paddle-icon {
+            height: 24px;
+            left: -8px;
+            margin-right: -8px;
+            position: relative;
+            vertical-align: middle;
+            width: 24px
+        }
+        
+        .googft-legend-source {
+            margin-bottom: 0;
+            margin-top: 8px
+        }
+        
+        .googft-legend-source a {
+            color: #666;
+            font-size: 11px
+        }#googft-legend{background-color:#fff;border:1px solid #000;font-family:Arial,sans-serif;font-size:12px;margin:5px;padding:10px 10px 8px}#googft-legend p{font-weight:bold;margin-top:0}#googft-legend div{margin-bottom:5px}.googft-legend-swatch{border:1px solid;float:left;height:12px;margin-right:8px;width:20px}.googft-legend-range{margin-left:0}.googft-dot-icon{margin-right:8px}.googft-paddle-icon{height:24px;left:-8px;margin-right:-8px;position:relative;vertical-align:middle;width:24px}.googft-legend-source{margin-bottom:0;margin-top:8px}.googft-legend-source a{color:#666;font-size:11px}
+</style>
+    <script type="text/javascript">
+        // HRC 1 : americas, 2 : eastasia, 3 : europe 4 : imea  5 : others
+        // BPO 1 : Cadis, 2 : SF, 3 : MyHR, 4 : MyHR OM 5 : Out of Scope
+        // SDC 1 : apac, 2 : cala, 3 : emea, 4 : india, 5 : nar, 6 : Out of scope
+        //Function initializes layers by putting them on map, 
+        function setMap(layer) {
+            layer.setMap(map);
+        }
+        // Open the info window at the clicked location
+        function windowControl(e, infoWindow, map) { //this allows for only one info window instance among several fusion tables layers
+            infoWindow.setOptions({
+                content: e.infoWindowHtml,
+                position: e.latLng,
+                pixelOffset: e.pixelOffset
+            });
+            infoWindow.open(map);
+        }
+    </script>
+
+    <div id="gmap" style="width: 1600px; padding-top: 40px; height: 900px;">
+        <script type="text/javascript">
+	  function initialize() {
+            google.maps.visualRefresh = true;
+            var mapDiv = document.getElementById('gmap');
+            map = new google.maps.Map(mapDiv, {
+                center: new google.maps.LatLng(24.82, 30.31),
+                zoom: 3,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+
+			
+			// Create the legend and display on the map
+        //var legend = document.createElement('div');
+        //legend.id = 'legend';
+        //var content = [];
+        //content.push('<h3>Employee Headcount</h3>');
+        //content.push('<p><div class="color red"></div>Speyeria</p>');
+        //content.push('<p><div class="color yellow"></div>Speyeria</p>');
+        //content.push('<p><div class="color green"></div>Papilio</p>');
+        //content.push('<p><div class="color blue"></div>Limenitis</p>');
+        //content.push('<p><div class="color purple"></div>Myscelia</p>');
+        //content.push('<p>*Data is fictional</p>');
+        //legend.innerHTML = content.join('');
+        //legend.index = 1;
+        //map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+		
+		// TOP_CENTER, LEFT_CENTER, LEFT_TOP, LEFT_BOTTOM, CENTER, RIGHT_TOP
+    map.controls[google.maps.ControlPosition.LEFT_TOP].push(document.getElementById('googft-legend-open'));
+    map.controls[google.maps.ControlPosition.LEFT_TOP].push(document.getElementById('googft-legend'));		
+			// Create first layer
+            var infoWindow = new google.maps.InfoWindow(); //the infowindow object to allow for layer info consolidation
+            var tableid1 = "19dX-_AM-LBZS6JxHTxnE8XAqcmihVLLB6y75AaDY";
+            var query1 = {
+                select: "name",
+                from: tableid1
+            };
+            var style1 = [{                where: "Shape_Area >= 30",
+                polygonOptions: {
+                    fillColor: "#00FF00"
+                }
+            }, {
+                where: "Shape_Area >= 20",
+                polygonOptions: {
+                    fillColor: "#FFFF00"
+                }
+            }, {
+                where: "Shape_Area >= 10",
+                polygonOptions: {
+                    fillColor: "#FF9900"
+                }
+            }];
+
+            var layer1 = new google.maps.FusionTablesLayer({
+                map: map,
+                heatmap: {
+                    enabled: false
+                },
+                query: query1,
+                options: {
+                    styleId: 3,
+                    templateId: 3
+                },
+                //styles: style1,
+                suppressInfoWindows: true
+            });
+            setMap(layer1);
+   
+            LISTENERNAME1 = google.maps.event.addListener(layer1, 'click',
+                function(e) {
+                    windowControl(e, infoWindow, map);
+                });
+
+            // create second layer
+            var tableid2 = "1OAk16e1te-epnq3Rg2lkqsVMfWCHs9TM5nFxCLcQ";
+            var query2 = {
+                select: "Latitude",
+                from: tableid2
+            };
+            var style2 = [{
+                where: "HC > 5000",
+                markerOptions: {
+                    iconName: 'large_red'
+                }
+            }, {
+                where: "HC <= 5000",
+                markerOptions: {
+                    iconName: 'large_yellow'
+                }
+            }, {
+                where: "HC <= 1000",
+                markerOptions: {
+                    iconName: 'large_blue'
+                }
+            }, {
+                where: "HC <= 500",
+                markerOptions: {
+                    iconName: 'small_blue'
+                }
+            }, {
+                where: "HC <= 100",
+                markerOptions: {
+                    iconName: 'small_yellow'
+                }
+            }];
+            //var layer2 = createFusionTableLayer(layer2, "Latitude", "1NToxC84XYHLeyNLmQJnBTnEijDURNlxq2_Kx7ZVm");
+            var layer2 = new google.maps.FusionTablesLayer({
+                map: map,
+                heatmap: {
+                    enabled: false
+                },
+                query: query2,
+                options: {
+                    styleId: 2,
+                    templateId: 2
+                },
+                //styles: style2,
+                suppressInfoWindows: true
+            });
+            setMap(layer2);
+            LISTENERNAME2 = google.maps.event.addListener(layer2, 'click',
+                function(e) {
+                    windowControl(e, infoWindow, map);
+                });
+
+            //var layer2 = createFusionTableLayer(layer2, 1325806);
+            //setMap(layer2);
+
+            //var layer3 = createFusionTableLayer(layer3, 1325564);
+            //setMap(layer3);
+		}
+		google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
+    </div>
+
+</head>
+
+<body>
+   <div id="gmap"></div>
+     <input id="googft-legend-open" style="display:none" type="button" value="Legend"></input>
+  <div id="googft-legend">
+    <p id="googft-legend-title">HC</p>
+    <div>
+      <img class="googft-dot-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAi0lEQVR42mNgQIAoIF4NxGegdCCSHAMzEC+NijL7v3p1+v8zZ6rAdGCg4X+g+EyYorS0NNv////PxMCxsRYghbEgRQcOHCjGqmjv3kKQor0gRQ8fPmzHquj27WaQottEmxQLshubopAQI5CiEJjj54N8t3FjFth369ZlwHw3jQENgMJpIzSc1iGHEwB8p5qDBbsHtAAAAABJRU5ErkJggg=="/>
+      <span class="googft-legend-range">1 to 500</span>
+    </div>
+    <div>
+      <img class="googft-dot-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAiElEQVR42mNgQIAoIF4NxGegdCCSHAMzEC81izL7n746/X/VmSowbRho+B8oPhOmKM02zfb/TCzQItYCpDAWpOhA8YFirIoK9xaCFO0FKXrY/rAdq6Lm280gRbeJNikWZDc2RUYhRiBFITDHzwf5LmtjFth3GesyYL6bxoAGQOG0ERpO65DDCQDX7ovT++K9KQAAAABJRU5ErkJggg=="/>
+      <span class="googft-legend-range">500 to 1,000</span>
+    </div>
+    <div>
+      <img class="googft-paddle-icon" src="http://maps.google.com/mapfiles/ms/micons/green-dot.png"/>
+      <span class="googft-legend-range">1,000 to 5,000</span>
+    </div>
+    <div>
+      <img class="googft-paddle-icon" src="http://maps.google.com/mapfiles/ms/micons/blue-dot.png"/>
+      <span class="googft-legend-range">5,000 to 10,000</span>
+    </div>
+    <div>
+      <img class="googft-paddle-icon" src="http://maps.google.com/mapfiles/ms/micons/red-dot.png"/>
+      <span class="googft-legend-range">10,000+</span>
+    </div>
+    <div class="googft-legend-source">
+      <a href="data?docid=1NToxC84XYHLeyNLmQJnBTnEijDURNlxq2_Kx7ZVm" target="_blank">Source</a>
+    </div>
+    <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
+  </div>
+</body>
+
+</html>
