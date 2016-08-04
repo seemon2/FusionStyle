@@ -142,13 +142,13 @@
         var legend = document.createElement('div');
         legend.id = 'legend';
         var content = [];
-        content.push('<h3>Employee Headcount</h3>');
+        content.push('<h3>HRConnection Scope</h3>');
         content.push('<p><div class="color black"></div>Out-of-Scope</p>');
         content.push('<p><div class="color red"></div>EastAsia</p>');
         content.push('<p><div class="color green"></div>Americas</p>');
         content.push('<p><div class="color blue"></div>Europe</p>');
         content.push('<p><div class="color purple"></div>IMEA</p>');
-        content.push('<p>*HRConnection</p>');
+        content.push('<p>*excluded NSB</p>');
         legend.innerHTML = content.join('');
         legend.index = 1;
         map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
@@ -267,7 +267,7 @@
    <div id="gmap"></div>
      <input id="googft-legend-open" style="display:none" type="button" value="Legend"></input>
   <div id="googft-legend">
-    <p id="googft-legend-title">HC</p>
+    <p id="googft-legend-title">Legacy Nokia Headcount</p>
     <div>
       <img class="googft-dot-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAi0lEQVR42mNgQIAoIF4NxGegdCCSHAMzEC+NijL7v3p1+v8zZ6rAdGCg4X+g+EyYorS0NNv////PxMCxsRYghbEgRQcOHCjGqmjv3kKQor0gRQ8fPmzHquj27WaQottEmxQLshubopAQI5CiEJjj54N8t3FjFth369ZlwHw3jQENgMJpIzSc1iGHEwB8p5qDBbsHtAAAAABJRU5ErkJggg=="/>
       <span class="googft-legend-range">1 to 500</span>
